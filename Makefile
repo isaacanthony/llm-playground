@@ -5,8 +5,8 @@ build:
 start:
 	@docker compose up --build --detach
 	@sleep 1
-	@docker exec -it ollama ollama run qwen3:0.6b
-	@echo http://localhost:11434
+	@docker exec --detach ollama ollama run qwen3:0.6b
+	@docker logs jupyter 2>&1 | grep "] http://localhost:8888" | cut -d "]" -f 2
 
 stop:
 	@docker compose down --remove-orphans --volumes

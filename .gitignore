@@ -1,2 +1,6 @@
+# jupyter
+.ipynb_checkpoints
+
+# ollama
 ollama/*
 !ollama/.gitkeep

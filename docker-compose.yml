@@ -13,3 +13,12 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+
+  jupyter:
+    container_name: jupyter
+    image: quay.io/jupyter/scipy-notebook:2025-05-12
+    ports:
+      - 8888:8888
+    volumes:
+      - ./jupyter/data:/home/jovyan/data
+      - ./jupyter/notebooks:/home/jovyan/notebooks
