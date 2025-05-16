@@ -11,3 +11,4 @@
 - [jupyter](https://github.com/jupyter/notebook)
 - [langchain](https://github.com/langchain-ai/langchain)
 - [ollama](https://github.com/ollama/ollama)
+- [openai agents sdk](https://github.com/openai/openai-agents-python)
