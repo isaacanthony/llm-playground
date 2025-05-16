@@ -5,12 +5,14 @@ from langchain.schema.runnable import Runnable
 from langchain.schema.runnable.config import RunnableConfig
 from langchain_ollama.llms import OllamaLLM
 
+from _base import AgentWrapper as BaseAgent
 
-class AgentWrapper():
-    def __init__(self):
+
+class AgentWrapper(BaseAgent):
+    def __init__(self, host: str, model: str):
         self.model =  OllamaLLM(
-            base_url="http://ollama:11434",
-            model="qwen3:0.6b",
+            base_url=f"http://{host}:11434",
+            model=model,
         )
 
 

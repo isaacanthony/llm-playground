@@ -7,6 +7,7 @@
 
 ## stack
 - [agno](https://github.com/agno-agi/agno)
+- [autogen](https://github.com/microsoft/autogen)
 - [chainlit](https://github.com/Chainlit/chainlit)
 - [jupyter](https://github.com/jupyter/notebook)
 - [langchain](https://github.com/langchain-ai/langchain)

@@ -3,7 +3,7 @@ build:
 	@docker compose build
 
 start:
-	@docker compose up --build --detach
+	@docker compose up chainlit ollama --build --detach
 	@sleep 1
 	@docker exec --detach ollama ollama run qwen3:0.6b
 	@make -s urls

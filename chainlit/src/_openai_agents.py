@@ -1,13 +1,16 @@
 from agents import Agent, Runner, OpenAIChatCompletionsModel, AsyncOpenAI
 from chainlit import Message
 
-class AgentWrapper():
-    def __init__(self):
+from _base import AgentWrapper as BaseAgent
+
+
+class AgentWrapper(BaseAgent):
+    def __init__(self, host: str, model: str):
         self.model = OpenAIChatCompletionsModel(
-            model="qwen3:0.6b",
+            model=model,
             openai_client=AsyncOpenAI(
                 api_key="dummy-api-key",
-                base_url="http://ollama:11434/v1",
+                base_url=f"http://{host}:11434/v1",
             ),
         )
 
@@ -16,10 +19,6 @@ class AgentWrapper():
             instructions="You are a helpful assistant.",
             model=self.model,
         )
-
-
-    async def on_chat_start(self):
-        pass
 
 
     async def on_message(self, message: Message):
