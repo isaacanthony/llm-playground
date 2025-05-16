@@ -15,6 +15,15 @@ services:
     ports:
       - 3000:3000
 
+  chainlit:
+    container_name: chainlit
+    build:
+      context: ./chainlit
+    ports:
+      - 8000:8000
+    volumes:
+      - ./chainlit/src:/home/src
+
   ollama:
     container_name: ollama
     image: ollama/ollama:0.6.8
