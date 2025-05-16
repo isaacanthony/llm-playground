@@ -13,3 +13,7 @@
 - [langchain](https://github.com/langchain-ai/langchain)
 - [ollama](https://github.com/ollama/ollama)
 - [openai agents sdk](https://github.com/openai/openai-agents-python)
+
+## mcp tools
+- [duckduckgo](https://github.com/deedy5/duckduckgo_search)
+- [wikipedia](https://github.com/goldsmith/Wikipedia)

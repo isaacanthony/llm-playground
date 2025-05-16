@@ -3,6 +3,7 @@ from chainlit import Message
 from openai.types.responses import ResponseTextDeltaEvent
 
 from _agents._base import AgentWrapper as BaseAgent
+from _tools._duckduckgo import news as duckduckgo_news, text as duckduckgo_text
 from _tools._wikipedia import search as wikipedia
 
 
@@ -20,7 +21,7 @@ class AgentWrapper(BaseAgent):
             name="Assistant",
             instructions="You are a helpful assistant.",
             model=self.model,
-            tools=[wikipedia],
+            tools=[duckduckgo_news, duckduckgo_text, wikipedia],
         )
 
 
