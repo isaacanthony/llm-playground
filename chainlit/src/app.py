@@ -1,15 +1,15 @@
 import chainlit as cl
 
-from _autogen import AgentWrapper as AutogenAgent
-from _langchain import AgentWrapper as LangChainAgent
-from _openai_agents import AgentWrapper as OpenAIAgent
+from _agents._autogen import AgentWrapper as AutogenAgent
+from _agents._langchain import AgentWrapper as LangChainAgent
+from _agents._openai_agents import AgentWrapper as OpenAIAgent
 
 
 HOST = "ollama"
 MODEL = "qwen3:0.6b"
 
 
-agent = AutogenAgent(HOST, MODEL)
+agent = OpenAIAgent(HOST, MODEL)
 
 
 @cl.on_chat_start

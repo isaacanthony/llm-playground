@@ -1,11 +1,10 @@
 from chainlit import LangchainCallbackHandler, Message, make_async, user_session
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema import StrOutputParser
-from langchain.schema.runnable import Runnable
 from langchain.schema.runnable.config import RunnableConfig
 from langchain_ollama.llms import OllamaLLM
 
-from _base import AgentWrapper as BaseAgent
+from _agents._base import AgentWrapper as BaseAgent
 
 
 class AgentWrapper(BaseAgent):

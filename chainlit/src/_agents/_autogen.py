@@ -3,7 +3,7 @@ from autogen_agentchat.messages import TextMessage
 from autogen_ext.models.ollama import OllamaChatCompletionClient
 from chainlit import Message
 
-from _base import AgentWrapper as BaseAgent
+from _agents._base import AgentWrapper as BaseAgent
 
 
 class AgentWrapper(BaseAgent):

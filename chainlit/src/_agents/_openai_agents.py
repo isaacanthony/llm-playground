@@ -1,8 +1,9 @@
-from agents import Agent, Runner, OpenAIChatCompletionsModel, AsyncOpenAI
+from agents import Agent, AsyncOpenAI, OpenAIChatCompletionsModel, Runner
 from chainlit import Message
 from openai.types.responses import ResponseTextDeltaEvent
 
-from _base import AgentWrapper as BaseAgent
+from _agents._base import AgentWrapper as BaseAgent
+from _tools._wikipedia import search as wikipedia
 
 
 class AgentWrapper(BaseAgent):
@@ -19,6 +20,7 @@ class AgentWrapper(BaseAgent):
             name="Assistant",
             instructions="You are a helpful assistant.",
             model=self.model,
+            tools=[wikipedia],
         )
 
 
