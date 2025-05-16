@@ -1,4 +1,5 @@
 from autogen_agentchat.agents import AssistantAgent
+from autogen_agentchat.messages import TextMessage
 from autogen_ext.models.ollama import OllamaChatCompletionClient
 from chainlit import Message
 
@@ -26,6 +27,11 @@ class AgentWrapper(BaseAgent):
         )
 
 
-    async def on_message(self, message: Message):
-        result = await self.agent.run(task=message.content)
-        await Message(content=result.messages[-1].content).send()
+    async def on_message(self, input_message: Message):
+        output_message = Message(content="")
+
+        async for result in self.agent.run_stream(task=input_message.content):
+            if isinstance(result, TextMessage):
+                await output_message.stream_token(result.content)
+
+        await output_message.send()

@@ -30,15 +30,15 @@ class AgentWrapper(BaseAgent):
         user_session.set("runnable", runnable)
 
 
-    async def on_message(self, message: Message):
+    async def on_message(self, input_message: Message):
         runnable = user_session.get("runnable")
 
-        msg = Message(content="")
+        output_message = Message(content="")
 
         for chunk in await make_async(runnable.stream)(
-            {"question": message.content},
+            {"question": input_message.content},
             config=RunnableConfig(callbacks=[LangchainCallbackHandler()]),
         ):
-            await msg.stream_token(chunk)
+            await output_message.stream_token(chunk)
 
-        await msg.send()
+        await output_message.send()

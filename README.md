@@ -5,7 +5,7 @@
 - `make start`: Start docker containers.
 - `make stop`: Stop docker containers.
 
-## stack
+## technologies explored
 - [agno](https://github.com/agno-agi/agno)
 - [autogen](https://github.com/microsoft/autogen)
 - [chainlit](https://github.com/Chainlit/chainlit)

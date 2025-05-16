@@ -1,5 +1,6 @@
 from agents import Agent, Runner, OpenAIChatCompletionsModel, AsyncOpenAI
 from chainlit import Message
+from openai.types.responses import ResponseTextDeltaEvent
 
 from _base import AgentWrapper as BaseAgent
 
@@ -21,6 +22,16 @@ class AgentWrapper(BaseAgent):
         )
 
 
-    async def on_message(self, message: Message):
-        result = Runner.run_sync(self.agent, message.content)
-        await Message(content=result.final_output).send()
+    async def on_message(self, input_message: Message):
+        result = Runner.run_streamed(self.agent, input_message.content)
+
+        output_message = Message(content="")
+
+        async for event in result.stream_events():
+            if (
+                event.type == "raw_response_event"
+                and isinstance(event.data, ResponseTextDeltaEvent)
+            ):
+                await output_message.stream_token(event.data.delta)
+
+        await output_message.send()

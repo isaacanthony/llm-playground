@@ -10,5 +10,5 @@ class AgentWrapper():
         pass
 
 
-    async def on_message(self, message: Message):
+    async def on_message(self, input_message: Message):
         await Message(content="Not implemented").send()
