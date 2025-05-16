@@ -1,4 +1,20 @@
 services:
+  agno-backend:
+    container_name: agno-backend
+    build:
+      context: ./agno/backend
+    ports:
+      - 7777:7777
+    volumes:
+      - ./agno/backend/src:/home/src
+
+  agno-frontend:
+    container_name: agno-frontend
+    build:
+      context: ./agno/frontend
+    ports:
+      - 3000:3000
+
   ollama:
     container_name: ollama
     image: ollama/ollama:0.6.8
