@@ -1,10 +1,11 @@
 from uuid import uuid4
 
-from agents import Agent, AsyncOpenAI, OpenAIChatCompletionsModel, Runner
+from agents import Agent, AsyncOpenAI, ModelSettings, OpenAIChatCompletionsModel, Runner
 from chainlit import Message
 from mlflow import set_experiment, set_tracking_uri
 from mlflow.openai import autolog
 from openai.types.responses import ResponseTextDeltaEvent
+from openai.types.shared import Reasoning
 
 from _agents._base import AgentWrapper as BaseAgent
 from _tools._duckduckgo import news as duckduckgo_news, text as duckduckgo_text
@@ -34,6 +35,14 @@ class AgentWrapper(BaseAgent):
             name="Assistant",
             instructions="You are a helpful assistant.",
             model=self.model,
+            model_settings=ModelSettings(
+                tool_choice="auto",
+                parallel_tool_calls=True,
+                reasoning=Reasoning(
+                    effort="high",
+                    summary="auto",
+                ),
+            ),
             tools=[duckduckgo_news, duckduckgo_text, wikipedia],
         )
 
