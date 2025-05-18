@@ -24,7 +24,10 @@ class AgentWrapper(BaseAgent):
             [
                 (
                     "system",
-                    "You're a very knowledgeable historian who provides accurate and eloquent answers to historical questions.",
+                    """
+                        You're a very knowledgeable historian who provides accurate
+                        and eloquent answers to historical questions.
+                    """,
                 ),
                 ("human", "{question}"),
             ]
