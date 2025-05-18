@@ -30,8 +30,7 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - ./jupyter/data:/home/jovyan/data
-      - ./jupyter/notebooks:/home/jovyan/notebooks
+      - ./jupyter:/home/jovyan
 
   mlflow:
     container_name: mlflow

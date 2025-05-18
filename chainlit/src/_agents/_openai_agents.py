@@ -11,7 +11,8 @@ from _tools._wikipedia import search as wikipedia
 
 
 class AgentWrapper(BaseAgent):
-    def __init__(self,
+    def __init__(
+        self,
         model_url: str = "",
         model_name: str = "",
         mlflow_url: str = "",
@@ -35,7 +36,6 @@ class AgentWrapper(BaseAgent):
             tools=[duckduckgo_news, duckduckgo_text, wikipedia],
         )
 
-
     async def on_message(self, input_message: Message):
         autolog()
         set_experiment(self.experiment_id)
@@ -44,9 +44,8 @@ class AgentWrapper(BaseAgent):
         output_message = Message(content="")
 
         async for event in result.stream_events():
-            if (
-                event.type == "raw_response_event"
-                and isinstance(event.data, ResponseTextDeltaEvent)
+            if event.type == "raw_response_event" and isinstance(
+                event.data, ResponseTextDeltaEvent
             ):
                 await output_message.stream_token(event.data.delta)
 

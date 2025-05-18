@@ -1,6 +1,8 @@
-# jupyter
 __pycache__
-.ipynb_checkpoints
+
+# jupyter
+jupyter/*
+!jupyter/.gitkeep
 
 # ollama
 ollama/*

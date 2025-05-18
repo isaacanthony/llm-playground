@@ -8,16 +8,16 @@ from _agents._base import AgentWrapper as BaseAgent
 
 
 class AgentWrapper(BaseAgent):
-    def __init__(self,
+    def __init__(
+        self,
         model_url: str = "",
         model_name: str = "",
         **params,
     ):
-        self.model =  OllamaLLM(
+        self.model = OllamaLLM(
             base_url=model_url,
             model=model_name,
         )
-
 
     async def on_chat_start(self):
         prompt = ChatPromptTemplate.from_messages(
@@ -31,7 +31,6 @@ class AgentWrapper(BaseAgent):
         )
         runnable = prompt | self.model | StrOutputParser()
         user_session.set("runnable", runnable)
-
 
     async def on_message(self, input_message: Message):
         runnable = user_session.get("runnable")

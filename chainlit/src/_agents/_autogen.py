@@ -7,7 +7,8 @@ from _agents._base import AgentWrapper as BaseAgent
 
 
 class AgentWrapper(BaseAgent):
-    def __init__(self,
+    def __init__(
+        self,
         model_host: str = "",
         model_name: str = "",
         **params,
@@ -29,7 +30,6 @@ class AgentWrapper(BaseAgent):
             "Assistant",
             model_client=self.model_client,
         )
-
 
     async def on_message(self, input_message: Message):
         output_message = Message(content="")

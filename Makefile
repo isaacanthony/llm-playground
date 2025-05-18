@@ -3,7 +3,7 @@ build:
 	@docker compose build
 
 start:
-	@docker compose up chainlit mlflow ollama --build --detach
+	@docker compose up chainlit jupyter mlflow ollama --build --detach
 	@sleep 1
 	@docker exec --detach ollama ollama run qwen3:0.6b
 	@make -s urls
@@ -18,3 +18,7 @@ urls:
 
 stop:
 	@docker compose down --remove-orphans --volumes
+
+test:
+	@docker build -t llm-playground-tests ./tests
+	@docker run -it --volume $(PWD):/src llm-playground-tests
