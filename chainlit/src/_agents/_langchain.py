@@ -8,10 +8,14 @@ from _agents._base import AgentWrapper as BaseAgent
 
 
 class AgentWrapper(BaseAgent):
-    def __init__(self, host: str, model: str):
+    def __init__(self,
+        model_url: str = "",
+        model_name: str = "",
+        **params,
+    ):
         self.model =  OllamaLLM(
-            base_url=f"http://{host}:11434",
-            model=model,
+            base_url=model_url,
+            model=model_name,
         )
 
 

@@ -3,17 +3,18 @@ build:
 	@docker compose build
 
 start:
-	@docker compose up chainlit ollama --build --detach
+	@docker compose up chainlit mlflow ollama --build --detach
 	@sleep 1
 	@docker exec --detach ollama ollama run qwen3:0.6b
 	@make -s urls
 
 urls:
-	@echo "agno \n http://localhost:3000\n"
+	@echo "agno \n http://localhost:3000 \n"
+	@echo "chainlit \n http://localhost:8000 \n"
 	@echo "jupyter"
 	@docker logs jupyter 2>&1 | grep "] http://localhost:8888" | cut -d "]" -f 2
 	@echo
-	@echo "chainlit \n http://localhost:8000"
+	@echo "mlflow \n http://localhost:8080"
 
 stop:
 	@docker compose down --remove-orphans --volumes

@@ -11,6 +11,7 @@
 - [chainlit](https://github.com/Chainlit/chainlit)
 - [jupyter](https://github.com/jupyter/notebook)
 - [langchain](https://github.com/langchain-ai/langchain)
+- [mlflow](https://github.com/mlflow/mlflow) [tracing](https://mlflow.org/docs/latest/tracing/integrations/openai-agent)
 - [ollama](https://github.com/ollama/ollama)
 - [openai agents sdk](https://github.com/openai/openai-agents-python)
 

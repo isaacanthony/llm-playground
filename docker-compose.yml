@@ -24,6 +24,22 @@ services:
     volumes:
       - ./chainlit/src:/home/src
 
+  jupyter:
+    container_name: jupyter
+    image: quay.io/jupyter/scipy-notebook:2025-05-12
+    ports:
+      - 8888:8888
+    volumes:
+      - ./jupyter/data:/home/jovyan/data
+      - ./jupyter/notebooks:/home/jovyan/notebooks
+
+  mlflow:
+    container_name: mlflow
+    build:
+      context: ./mlflow
+    ports:
+      - 8080:8080
+
   ollama:
     container_name: ollama
     image: ollama/ollama:0.6.8
@@ -38,12 +54,3 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
-
-  jupyter:
-    container_name: jupyter
-    image: quay.io/jupyter/scipy-notebook:2025-05-12
-    ports:
-      - 8888:8888
-    volumes:
-      - ./jupyter/data:/home/jovyan/data
-      - ./jupyter/notebooks:/home/jovyan/notebooks

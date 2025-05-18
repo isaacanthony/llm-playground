@@ -7,12 +7,16 @@ from _agents._base import AgentWrapper as BaseAgent
 
 
 class AgentWrapper(BaseAgent):
-    def __init__(self, host: str, model: str):
+    def __init__(self,
+        model_host: str = "",
+        model_name: str = "",
+        **params,
+    ):
         self.model_client = OllamaChatCompletionClient(
-            host=host,
-            model=model,
+            host=model_host,
+            model=model_name,
             model_info={
-                "family": model,
+                "family": model_name,
                 "function_calling": True,
                 "json_output": True,
                 "multiple_system_messages": True,

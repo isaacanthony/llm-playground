@@ -2,7 +2,12 @@ from chainlit import Message
 
 
 class AgentWrapper():
-    def __init__(self, host: str, model: str):
+    def __init__(self,
+        model_host: str = "",
+        model_url: str = "",
+        model_name: str = "",
+        mlflow_url = "",
+    ):
         pass
     
 
