@@ -1,4 +1,4 @@
-import chainlit as cl
+from chainlit import Message, on_chat_start, on_message
 
 from _agents._autogen import AgentWrapper as AutogenAgent
 from _agents._langchain import AgentWrapper as LangChainAgent
@@ -18,11 +18,11 @@ agent = OpenAIAgent(
 )
 
 
-@cl.on_chat_start
-async def on_chat_start():
+@on_chat_start
+async def _on_chat_start():
     await agent.on_chat_start()
 
 
-@cl.on_message
-async def on_message(message: cl.Message):
+@on_message
+async def _on_message(message: Message):
     await agent.on_message(message)
