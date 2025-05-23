@@ -3,7 +3,7 @@ build:
 	@docker compose build
 
 start:
-	@docker compose up chainlit jupyter mlflow ollama --build --detach
+	@COMPOSE_PROFILES=$(profile) docker compose up --build --detach
 	@sleep 1
 	@docker exec --detach ollama ollama run qwen3:0.6b
 	@make -s urls
@@ -17,7 +17,7 @@ urls:
 	@echo "mlflow \n http://localhost:8080"
 
 stop:
-	@docker compose down --remove-orphans --volumes
+	@COMPOSE_PROFILES=$(profile) docker compose down --remove-orphans --volumes
 
 test:
 	@docker build -t llm-playground-tests ./tests
