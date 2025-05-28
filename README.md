@@ -5,7 +5,7 @@
 - `make start`: Start docker containers.
 - `make stop`: Stop docker containers.
 
-## technologies explored
+### technologies explored
 - [agno](https://github.com/agno-agi/agno)
 - [autogen](https://github.com/microsoft/autogen)
 - [chainlit](https://github.com/Chainlit/chainlit)
@@ -15,6 +15,12 @@
 - [ollama](https://github.com/ollama/ollama)
 - [openai agents sdk](https://github.com/openai/openai-agents-python)
 
-## mcp tools
+### mcp tools
 - [duckduckgo](https://github.com/deedy5/duckduckgo_search)
+- [markitdown](https://github.com/microsoft/markitdown)
 - [wikipedia](https://github.com/goldsmith/Wikipedia)
+
+### linters
+- [black](https://github.com/psf/black)
+- [mypy](https://github.com/python/mypy)
+- [pylint](https://github.com/pylint-dev/pylint)

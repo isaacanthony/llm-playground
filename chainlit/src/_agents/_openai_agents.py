@@ -9,6 +9,7 @@ from openai.types.shared import Reasoning
 
 from _agents._base import AgentWrapper as BaseAgent
 from _tools._duckduckgo import news as duckduckgo_news, text as duckduckgo_text
+from _tools._new_york_times import business_news, world_news
 from _tools._wikipedia import search as wikipedia
 
 
@@ -43,20 +44,23 @@ class AgentWrapper(BaseAgent):
                     summary="auto",
                 ),
             ),
-            tools=[duckduckgo_news, duckduckgo_text, wikipedia],
+            tools=[business_news, world_news, wikipedia],
         )
 
     async def on_message(self, input_message: Message):
         autolog()
         set_experiment(self.experiment_id)
-        result = Runner.run_streamed(self.agent, input_message.content)
+        result = await Runner.run(self.agent, input_message.content)
 
-        output_message = Message(content="")
-
-        async for event in result.stream_events():
-            if event.type == "raw_response_event" and isinstance(
-                event.data, ResponseTextDeltaEvent
-            ):
-                await output_message.stream_token(event.data.delta)
-
+        output_message = Message(content=result.final_output)
         await output_message.send()
+
+        # async for event in result.stream_events():
+        #     print(event.type)
+        #     if event.type == "raw_response_event" and isinstance(
+        #         event.data, ResponseTextDeltaEvent
+        #     ):
+        #         print(event)
+        #         await output_message.stream_token(event.data.delta)
+
+        # await output_message.send()
