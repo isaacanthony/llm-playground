@@ -9,7 +9,7 @@ from openai.types.shared import Reasoning
 
 from _agents._base import AgentWrapper as BaseAgent
 from _tools._duckduckgo import news as duckduckgo_news, text as duckduckgo_text
-from _tools._new_york_times import business_news, world_news
+from _tools._new_york_times import news as nyt_news
 from _tools._wikipedia import search as wikipedia
 
 
@@ -44,7 +44,7 @@ class AgentWrapper(BaseAgent):
                     summary="auto",
                 ),
             ),
-            tools=[business_news, world_news, wikipedia],
+            tools=[nyt_news, wikipedia],
         )
 
     async def on_message(self, input_message: Message):

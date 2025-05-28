@@ -1,30 +1,42 @@
+from enum import Enum
+
 from agents import function_tool
 from markitdown import MarkItDown
 
 
+class NewsTopic(Enum):
+    # World
+    WORLD = "World"
+    AFRICA = "Africa"
+    AMERICAS = "Americas"
+    ASIA_PACIFIC = "AsiaPacific"
+    EUROPE = "Europe"
+    MIDDLE_EAST = "MiddleEast"
+    # US
+    US = "US"
+    EDUCATION = "Education"
+    POLITICS = "Politics"
+    # Business
+    BUSINESS = "Business"
+    ECONOMY = "Economy"
+    # Technology
+    TECHNOLOGY = "Technology"
+    # Sports
+    SPORTS = "Sports"
+    # Science
+    SCIENCE = "Science"
+
+
 @function_tool
-def business_news() -> str:
+def news(topic: NewsTopic) -> str:
     """
-    Get business news stories from the New York Times.
+    Get recent news stories from the New York Times.
 
     Args:
+        topic: The topic of news being requested.
     """
-    return _get_nyt_rss_md("Business").text_content
-
-
-@function_tool
-def world_news() -> str:
-    """
-    Get world news stories from the New York Times.
-
-    Args:
-    """
-    return _get_nyt_rss_md("World").text_content
-
-
-def _get_nyt_rss_md(topic: str) -> str:
     return (
         MarkItDown()
-        .convert(f"https://rss.nytimes.com/services/xml/rss/nyt/{topic}.xml")
+        .convert(f"https://rss.nytimes.com/services/xml/rss/nyt/{topic.value}.xml")
         .text_content
     )
