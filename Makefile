@@ -1,6 +1,6 @@
 build:
-	@docker compose pull
-	@docker compose build
+	@COMPOSE_PROFILES=$(profile) docker compose pull
+	@COMPOSE_PROFILES=$(profile) docker compose build
 
 start:
 	@COMPOSE_PROFILES=$(profile) docker compose up --build --detach

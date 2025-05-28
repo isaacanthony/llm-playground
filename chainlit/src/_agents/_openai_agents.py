@@ -1,6 +1,7 @@
 from uuid import uuid4
 
 from agents import Agent, AsyncOpenAI, ModelSettings, OpenAIChatCompletionsModel, Runner
+from agents.mcp.server import MCPServerSse, MCPServerStreamableHttp
 from chainlit import Message
 from mlflow import set_experiment, set_tracking_uri
 from mlflow.openai import autolog
@@ -21,16 +22,29 @@ class AgentWrapper(BaseAgent):
         mlflow_url: str = "",
         **params,
     ):
+        self.model_url = model_url
+        self.model_name = model_name
+        self.mlflow_url = mlflow_url
         self.experiment_id = str(uuid4())
-        set_tracking_uri(mlflow_url)
+        self.model: OpenAIChatCompletionsModel = None
+        self.agent: Agent = None
+
+    async def on_chat_start(self):
+        set_tracking_uri(self.mlflow_url)
 
         self.model = OpenAIChatCompletionsModel(
-            model=model_name,
+            model=self.model_name,
             openai_client=AsyncOpenAI(
                 api_key="dummy-api-key",
-                base_url=model_url + "/v1",
+                base_url=self.model_url + "/v1",
             ),
         )
+
+        playwright_mcp = MCPServerSse(
+            name="Playwright MCP",
+            params={"url": "http://playwright:9000/sse"},
+        )
+        await playwright_mcp.connect()
 
         self.agent = Agent(
             name="Assistant",
@@ -44,7 +58,8 @@ class AgentWrapper(BaseAgent):
                     summary="auto",
                 ),
             ),
-            tools=[nyt_news, wikipedia],
+            mcp_servers=[playwright_mcp],
+            # tools=[nyt_news, wikipedia],
         )
 
     async def on_message(self, input_message: Message):

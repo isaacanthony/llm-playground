@@ -48,6 +48,7 @@ services:
       - 8080:8080
     profiles:
       - chainlit
+      - mlflow
 
   ollama:
     container_name: ollama
@@ -65,5 +66,19 @@ services:
       - agno
       - chainlit
       - jupyter
+      - ollama
+      - playwright
     volumes:
       - ./ollama:/root/.ollama
+
+  playwright:
+    container_name: playwright
+    build:
+      context: ./playwright
+    ports:
+      - 9000:9000
+    profiles:
+      - chainlit
+      - playwright
+    volumes:
+      - ./playwright/app.py:/home/jovyan/src/app.py
