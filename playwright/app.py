@@ -1,3 +1,5 @@
+from io import BytesIO
+
 from fastmcp import FastMCP
 from markitdown import MarkItDown
 from playwright.async_api import async_playwright
@@ -16,7 +18,7 @@ async def goto(url: str) -> str:
     """
     page_html = ""
 
-    with async_playwright() as p:
+    async with async_playwright() as p:
         browser = await p.chromium.launch()
         page = await browser.new_page()
         await page.goto(url)
@@ -28,4 +30,5 @@ async def goto(url: str) -> str:
 
 
 def _to_markdown(input_str: str) -> str:
-    return MarkItDown().convert(input_str).text_content
+    input_file = BytesIO(input_str.encode("utf-8"))
+    return MarkItDown().convert(input_file).text_content

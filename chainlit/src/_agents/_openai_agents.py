@@ -42,7 +42,11 @@ class AgentWrapper(BaseAgent):
 
         playwright_mcp = MCPServerSse(
             name="Playwright MCP",
-            params={"url": "http://playwright:9000/sse"},
+            params={
+                "cache_tools_list": True,
+                "client_session_timeout_seconds": 5.0,
+                "url": "http://playwright:9000/sse",
+            },
         )
         await playwright_mcp.connect()
 
