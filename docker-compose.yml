@@ -30,6 +30,28 @@ services:
     volumes:
       - ./chainlit/src:/home/jovyan/src
 
+  chrome:
+    container_name: chrome
+    image: kasmweb/chrome:1.17.0
+    environment:
+      APP_ARGS: --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222
+      VNC_PW: password
+    ports:
+      - 6901:6901
+      - 9222:9222
+    profiles:
+      - chainlit
+      - chrome
+    shm_size: 512m
+
+  chromium:
+    container_name: chromium
+    image: linuxserver/chromium:version-a4879cda
+    ports:
+      - 3000:3000
+    profiles:
+      - chromium
+
   jupyter:
     container_name: jupyter
     image: quay.io/jupyter/scipy-notebook:2025-05-12
@@ -65,9 +87,7 @@ services:
     profiles:
       - agno
       - chainlit
-      - jupyter
       - ollama
-      - playwright
     volumes:
       - ./ollama:/root/.ollama
 

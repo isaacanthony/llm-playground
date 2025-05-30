@@ -11,6 +11,7 @@ start:
 urls:
 	@echo "agno \n http://localhost:3000 \n"
 	@echo "chainlit \n http://localhost:8000 \n"
+	@echo "chrome \n https://localhost:6901 \n"
 	@echo "jupyter"
 	@docker logs jupyter 2>&1 | grep "] http://localhost:8888" | cut -d "]" -f 2
 	@echo
