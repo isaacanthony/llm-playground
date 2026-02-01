@@ -1,24 +1,22 @@
+export MODEL := glm-4.7-flash
+
 build:
-	@COMPOSE_PROFILES=$(profile) docker compose pull
-	@COMPOSE_PROFILES=$(profile) docker compose build
+	@docker compose pull
 
 start:
-	@COMPOSE_PROFILES=$(profile) docker compose up --build --detach
-	@sleep 1
-	@docker exec --detach ollama ollama run qwen3:0.6b
-	@make -s urls
+	@docker compose up --build --detach
 
-urls:
-	@echo "agno \n http://localhost:3000 \n"
-	@echo "chainlit \n http://localhost:8000 \n"
-	@echo "jupyter"
-	@docker logs jupyter 2>&1 | grep "] http://localhost:8888" | cut -d "]" -f 2
-	@echo
-	@echo "mlflow \n http://localhost:8080"
+install:
+	@docker exec ollama ollama pull $(MODEL) 
+
+run:
+	@docker exec --detach ollama ollama run $(MODEL)
 
 stop:
-	@COMPOSE_PROFILES=$(profile) docker compose down --remove-orphans --volumes
+	@docker compose down --remove-orphans --volumes
 
-test:
-	@docker build -t llm-playground-tests ./tests
-	@docker run -it --volume $(PWD):/src llm-playground-tests
+models:
+	@curl -s http://localhost:11434/api/tags | python3 -m json.tool
+
+bash:
+	@docker exec -it opencode opencode --model ollama/$(MODEL)

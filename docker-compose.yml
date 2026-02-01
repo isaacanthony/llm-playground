@@ -1,55 +1,4 @@
 services:
-  agno-backend:
-    container_name: agno-backend
-    build:
-      context: ./agno/backend
-    ports:
-      - 7777:7777
-    profiles:
-      - agno
-    volumes:
-      - ./agno/backend/src:/home/src
-
-  agno-frontend:
-    container_name: agno-frontend
-    build:
-      context: ./agno/frontend
-    profiles:
-      - agno
-    ports:
-      - 3000:3000
-
-  chainlit:
-    container_name: chainlit
-    build:
-      context: ./chainlit
-    ports:
-      - 8000:8000
-    profiles:
-      - chainlit
-    volumes:
-      - ./chainlit/src:/home/jovyan/src
-
-  jupyter:
-    container_name: jupyter
-    image: quay.io/jupyter/scipy-notebook:2025-05-12
-    ports:
-      - 8888:8888
-    profiles:
-      - jupyter
-    volumes:
-      - ./jupyter:/home/jovyan
-
-  mlflow:
-    container_name: mlflow
-    build:
-      context: ./mlflow
-    ports:
-      - 8080:8080
-    profiles:
-      - chainlit
-      - mlflow
-
   ollama:
     container_name: ollama
     deploy:
@@ -59,26 +8,15 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
-    image: ollama/ollama:0.6.8
+    image: ollama/ollama:0.15.3
     ports:
       - 11434:11434
-    profiles:
-      - agno
-      - chainlit
-      - jupyter
-      - ollama
-      - playwright
     volumes:
       - ./ollama:/root/.ollama
 
-  playwright:
-    container_name: playwright
-    build:
-      context: ./playwright
-    ports:
-      - 9000:9000
-    profiles:
-      - chainlit
-      - playwright
+  opencode:
+    container_name: opencode
+    image: ghcr.io/anomalyco/opencode
     volumes:
-      - ./playwright/app.py:/home/jovyan/src/app.py
+      - ./opencode/opencode.json:/root/.config/opencode/opencode.json
+      - ./opencode/code:/root/code

@@ -1,9 +1,7 @@
-__pycache__
-
-# jupyter
-jupyter/*
-!jupyter/.gitkeep
-
 # ollama
 ollama/*
 !ollama/.gitkeep
+
+# opencode
+opencode/code/*
+!opencode/code/.gitkeep
