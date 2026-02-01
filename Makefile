@@ -1,22 +1,23 @@
-export MODEL := glm-4.7-flash
+model ?= glm-4.7-flash
+profile ?= "opencode"
 
 build:
 	@docker compose pull
 
 start:
-	@docker compose up --build --detach
+	@docker compose --profile $(profile) up --build --detach
 
 install:
-	@docker exec ollama ollama pull $(MODEL) 
+	@docker exec ollama ollama pull $(model)
 
 run:
-	@docker exec --detach ollama ollama run $(MODEL)
+	@docker exec --detach ollama ollama run $(model)
 
 stop:
-	@docker compose down --remove-orphans --volumes
+	@docker compose --profile $(profile) down --remove-orphans --volumes
 
 models:
 	@curl -s http://localhost:11434/api/tags | python3 -m json.tool
 
 bash:
-	@docker exec -it --workdir /root/code opencode opencode --model ollama/$(MODEL)
+	@docker exec -it --workdir /root/code opencode opencode

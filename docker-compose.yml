@@ -11,12 +11,16 @@ services:
     image: ollama/ollama:0.15.3
     ports:
       - 11434:11434
+    profiles:
+      - ollama
     volumes:
       - ./ollama:/root/.ollama
 
   opencode:
     container_name: opencode
     image: ghcr.io/anomalyco/opencode
+    profiles:
+      - opencode
     volumes:
       - ./opencode/opencode.json:/root/.config/opencode/opencode.json
       - ./opencode/code:/root/code
