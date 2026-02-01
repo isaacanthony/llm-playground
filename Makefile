@@ -19,4 +19,4 @@ models:
 	@curl -s http://localhost:11434/api/tags | python3 -m json.tool
 
 bash:
-	@docker exec -it opencode opencode --model ollama/$(MODEL)
+	@docker exec -it --workdir /root/code opencode opencode --model ollama/$(MODEL)
