@@ -21,3 +21,6 @@ models:
 
 bash:
 	@docker exec -it --workdir /root/code opencode opencode
+
+server:
+	@python3 -m http.server --directory opencode/code
